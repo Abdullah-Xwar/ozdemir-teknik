@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Özdemir Teknik Bilgisayar | Profesyonel Destek & Bilişim Çözümleri</title>
+
+    <!-- FontAwesome İkonları -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ----------------------------------------
+           1. GENEL TASARIM AYARLARI & DEĞİŞKENLER
+        ---------------------------------------- */
+
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #00d2ff;
+            --dark-color: #0a192f;
+            --light-color: #f4f7f6;
+            --text-dark: #333333;
+            --text-light: #a0aec0;
+            --border-radius: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --glow-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title h2 span {
+            color: var(--primary-color);
+        }
+
+        .section-title p {
+            color: #718096;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+            margin: 20px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Butonlar */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            gap: 10px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(
+                135deg,
+                var(--primary-color),
+                #003d99
+            );
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 82, 204, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 82, 204, 0.5);
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            background-color: #20ba5a;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ----------------------------------------
+           2. NAVİGASYON BAR (HEADER)
+        ---------------------------------------- */
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: var(--dark-color);
+        }
+
+        header.scrolled .nav-link {
+            color: #ffffff;
+        }
+
+        header.scrolled .logo-text {
+            color: #ffffff;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-svg {
+            width: 45px;
+            height: 45px;
+            filter: drop-shadow(
+                0 2px 5px rgba(0, 82, 204, 0.2)
+            );
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* ----------------------------------------
+           3. HERO (GİRİŞ) BÖLÜMÜ
+        ---------------------------------------- */
+
+        .hero-section {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(0, 210, 255, 0.08),
+                    transparent
+                ),
+                linear-gradient(
+                    185deg,
+                    #ffffff 0%,
+                    #eef2f5 100%
+                );
+
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 82, 204, 0.03);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+            z-index: 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--dark-color);
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(
+                135deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-features-badges {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 30px;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .badge-item i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        /* Sağ Taraf - İnteraktif Logo Çerçevesi */
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .visual-glow-circle {
+            width: 350px;
+            height: 350px;
+            background: white;
+            border-radius: 50%;
+            box-shadow:
+                var(--card-shadow),
+                inset 0 0 40px rgba(0, 82, 204, 0.05);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: floatAnimation 6s ease-in-out infinite;
+        }
+
+        .visual-glow-circle::after {
+            content: '';
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            border: 2px dashed rgba(0, 82, 204, 0.2);
+            border-radius: 50%;
+            animation: rotateAnimation 20s linear infinite;
+        }
+
+        .hero-logo-display {
+            width: 80%;
+            height: auto;
+            transform: scale(1.05);
+        }
+
+        /* ----------------------------------------
+           4. UZMANLIK & HAKKIMIZDA BÖLÜMÜ
+        ---------------------------------------- */
+
+        .about-section {
+            background-color: #ffffff;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-box {
+            position: relative;
+        }
+
+        .certificate-card {
+            background: linear-gradient(
+                135deg,
+                var(--dark-color) 0%,
+                #1a365d 100%
+            );
+
+            border-radius: var(--border-radius);
+            padding: 40px;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(0, 210, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .cert-header i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+
+        .cert-badge {
+            background-color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .certificate-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .certificate-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .cert-footer-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .cert-info-item span {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .cert-info-item strong {
+            color: #ffffff;
+        }
+
+        .about-text-content h3 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .about-text-content p {
+            color: #4a5568;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .stat-bar-group {
+            margin-bottom: 35px;
+        }
+
+        .stat-item {
+            margin-bottom: 20px;
+        }
+
+        .stat-labels {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark-color);
+        }
+
+        .stat-progress-bg {
+            width: 100%;
+            height: 8px;
+            background-color: #edf2f7;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .stat-progress-fill {
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+            border-radius: 4px;
+            width: 0;
+            transition:
+                width 1.5s cubic-bezier(
+                    0.16,
+                    1,
+                    0.3,
+                    1
+                );
+        }
+
+        /* ----------------------------------------
+           5. HİZMETLER BÖLÜMÜ
+        ---------------------------------------- */
+
+        .services-section {
+            background-color: var(--light-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(350px, 1fr)
+            );
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #ffffff;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .service-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background-color: rgba(0, 82, 204, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover .service-icon-wrapper {
+            background-color: var(--primary-color);
+        }
+
+        .service-icon-wrapper i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover .service-icon-wrapper i {
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .service-list li i {
+            color: #25d366;
+            font-size: 1rem;
+        }
+
+        .services-more-info {
+            text-align: center;
+            margin-top: 50px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px dashed rgba(0, 82, 204, 0.3);
+        }
+
+        .services-more-info p {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* ----------------------------------------
+           6. İNTERAKTİF ARIZA TAKİP SİMÜLATÖRÜ
+        ---------------------------------------- */
+
+        .tracking-section {
+            background-color: #ffffff;
+        }
+
+        .tracking-box {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-form-wrapper {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .search-input-group {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-input-group i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 1.2rem;
+        }
+
+        .search-input-group input {
+            width: 100%;
+            padding: 16px 20px 16px 55px;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-smooth);
+            font-weight: 500;
+        }
+
+        .search-input-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 82, 204, 0.1);
+        }
+
+        /* Canlı İlerleme Çubuğu Arayüzü */
+
+        .tracking-result-panel {
+            display: none;
+            background-color: #ffffff;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--card-shadow);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .device-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .device-details h4 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .device-details p {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .status-badge {
+            background-color: rgba(0, 82, 204, 0.1);
+            color: var(--primary-color);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .progress-steps-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .progress-steps-container::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #edf2f7;
+            z-index: 0;
+        }
+
+        .progress-line-fill {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+            z-index: 1;
+            width: 0%;
+            transition: width 0.8s ease;
+        }
+
+        .step-node {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .node-icon-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 3px solid #edf2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            transition: var(--transition-smooth);
+            color: #a0aec0;
+            font-size: 1.2rem;
+        }
+
+        .step-node.active .node-icon-circle {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 82, 204, 0.2);
+        }
+
+        .step-node.completed .node-icon-circle {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .node-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #718096;
+            transition: var(--transition-smooth);
+        }
+
+        .step-node.active .node-label {
+            color: var(--dark-color);
+        }
+
+        .log-details-box {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 0.95rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* ----------------------------------------
+           7. MÜŞTERİ PANELİ & KULLANICI ARAYÜZÜ
+        ---------------------------------------- */
+
+        .portal-section {
+            background-color: var(--light-color);
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 0.3fr 0.7fr;
+            gap: 30px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .portal-sidebar {
+            background-color: var(--dark-color);
+            padding: 40px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .portal-user-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .portal-user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(
+                135deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .portal-user-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .portal-user-info span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .portal-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .portal-nav-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .portal-nav-btn.active,
+        .portal-nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .portal-nav-btn.active {
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .portal-content-area {
+            padding: 50px;
+            background-color: #ffffff;
+        }
+
+        .portal-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .portal-pane.active {
+            display: block;
+        }
+
+        .portal-pane h3 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 15px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .portal-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .portal-table th {
+            background-color: var(--light-color);
+            padding: 15px;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .portal-table td {
+            padding: 15px;
+            border-bottom: 1px solid #edf2f7;
+            color: #4a5568;
+        }
+
+        /* ----------------------------------------
+           8. İLETİŞİM & HARİTA BÖLÜMÜ
+        ---------------------------------------- */
+
+        .contact-section {
+            background-color: #ffffff;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 50px;
+        }
+
+        .contact-info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card-item {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            border: 1px solid rgba(0, 0, 0, 0.01);
+            transition: var(--transition-smooth);
+        }
+
+        .info-card-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .info-icon-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            box-shadow: var(--glow-shadow);
+        }
+
+        .info-text-box h4 {
+            font-size: 1.15rem;
+            color: var(--dark-color);
+            margin-bottom: 6px;
+        }
+
+        .info-text-box p {
+            color: #718096;
+            font-size: 0.95rem;
+        }
+
+        .map-frame-wrapper {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 4px solid white;
+        }
+
+        .map-frame-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ----------------------------------------
+           9. FOOTER (ALT BİLGİ)
+        ---------------------------------------- */
+
+        footer {
+            background-color: var(--dark-color);
+            color: #ffffff;
+            padding: 60px 0 30px 0;
+            font-size: 0.95rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .footer-brand p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            max-width: 320px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links ul a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links ul a:hover {
+            color: #ffffff;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* ----------------------------------------
+           10. ANİMASYONLAR & RESPONSIVE AYARLAR
+        ---------------------------------------- */
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes rotateAnimation {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin: 0 auto 40px auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-features-badges {
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portal-sidebar {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: #ffffff;
+                flex-direction: column;
+                padding: 40px;
+                transition: var(--transition-smooth);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .search-form-wrapper {
+                flex-direction: column;
+            }
+        }
+    
+
+        /* ----------------------------------------
+           EK MODÜL: GERÇEK ARIZA TALEP SİSTEMİ
+        ---------------------------------------- */
+        .request-system-section { background: #f8fafc; }
+        .request-system-grid { display:grid; grid-template-columns: 1fr 1fr; gap:30px; align-items:start; }
+        .request-card, .admin-card { background:#fff; border-radius:var(--border-radius); padding:35px; box-shadow:var(--card-shadow); border:1px solid #edf2f7; }
+        .request-card h3, .admin-card h3 { color:var(--dark-color); margin-bottom:10px; font-size:1.5rem; }
+        .request-card > p, .admin-card > p { color:#718096; margin-bottom:25px; }
+        .request-form { display:grid; gap:15px; }
+        .request-form .two-col { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+        .request-form label { font-weight:600; color:var(--dark-color); font-size:.9rem; }
+        .request-form input, .request-form select, .request-form textarea, .admin-form input, .admin-form select, .admin-form textarea {
+            width:100%; margin-top:7px; padding:13px 15px; border:2px solid #e2e8f0; border-radius:10px; outline:none; font-family:inherit; transition:var(--transition-smooth); background:#fff;
+        }
+        .request-form input:focus, .request-form select:focus, .request-form textarea:focus, .admin-form input:focus, .admin-form select:focus, .admin-form textarea:focus { border-color:var(--primary-color); box-shadow:0 0 10px rgba(0,82,204,.08); }
+        .request-form textarea, .admin-form textarea { min-height:110px; resize:vertical; }
+        .request-notice { background:#eef6ff; border-left:4px solid var(--primary-color); padding:14px 16px; border-radius:8px; color:#334155; font-size:.9rem; margin-bottom:18px; }
+        .request-list { display:grid; gap:15px; max-height:720px; overflow:auto; padding-right:4px; }
+        .request-item { border:1px solid #e2e8f0; border-radius:12px; padding:20px; background:#fff; }
+        .request-item-head { display:flex; justify-content:space-between; gap:15px; align-items:flex-start; margin-bottom:12px; }
+        .request-code { font-weight:800; color:var(--primary-color); letter-spacing:.5px; }
+        .request-meta { color:#64748b; font-size:.86rem; }
+        .request-item h4 { color:var(--dark-color); margin-bottom:5px; }
+        .request-item p { color:#475569; font-size:.92rem; margin:5px 0; }
+        .request-status { display:inline-flex; padding:5px 10px; border-radius:999px; font-size:.78rem; font-weight:700; background:#e8f1ff; color:var(--primary-color); }
+        .request-details { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+        .request-detail-box { background:#f8fafc; border-radius:8px; padding:10px; }
+        .request-detail-box small { display:block; color:#94a3b8; margin-bottom:3px; }
+        .admin-section { background:#0a192f; color:#fff; }
+        .admin-section .section-title h2 { color:#fff; }
+        .admin-section .section-title p { color:#a0aec0; }
+        .admin-login { max-width:650px; margin:0 auto; }
+        .admin-form { display:grid; gap:14px; }
+        .admin-form label { color:#dbeafe; font-weight:600; font-size:.9rem; }
+        .admin-form input, .admin-form select, .admin-form textarea { color:#1e293b; }
+        .admin-dashboard { display:none; }
+        .admin-toolbar { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:20px; flex-wrap:wrap; }
+        .admin-request-list { display:grid; gap:18px; }
+        .admin-request-item { background:#fff; color:#334155; border-radius:12px; padding:22px; }
+        .admin-request-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+        .admin-request-grid .full { grid-column:1 / -1; }
+        .admin-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:15px; }
+        .admin-message { margin-top:12px; padding:10px 12px; border-radius:8px; display:none; }
+        .admin-message.ok { display:block; background:#dcfce7; color:#166534; }
+        .admin-message.err { display:block; background:#fee2e2; color:#991b1b; }
+        .public-request-empty { padding:25px; text-align:center; color:#718096; background:#f8fafc; border-radius:10px; }
+        .request-system-full { margin-top:30px; }
+        .request-system-full .request-card { width:100%; }
+        .privacy-note { color:#94a3b8; font-size:.8rem; margin-top:10px; }
+        @media (max-width: 992px) { .request-system-grid { grid-template-columns:1fr; } }
+        @media (max-width: 600px) { .request-form .two-col, .admin-request-grid, .request-details { grid-template-columns:1fr; } .request-card,.admin-card { padding:22px; } }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header id="header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo-area">
+                <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="20" fill="url(#paint0_linear)"/>
+                    <path d="M30 40H70M30 55H55M35 70H65" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="50" cy="25" r="8" fill="white"/>
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#0052cc"/>
+                            <stop offset="1" stop-color="#00d2ff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="logo-text">
+                    <span class="logo-main brand-name">ÖZDEMİR</span>
+                    <span class="logo-sub">Teknik Bilgisayar</span>
+                </div>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="#about" class="nav-link">Hakkımızda</a></li>
+                <li><a href="#services" class="nav-link">Hizmetler</a></li>
+                <li><a href="#tracking" class="nav-link">Arıza Takip</a></li>
+                <li><a href="#requests" class="nav-link">Talep Oluştur</a></li>
+                <li><a href="#admin" class="nav-link">Yönetim</a></li>
+                <li><a href="#portal" class="nav-link">Müşteri Paneli</a></li>
+                <li><a href="#contact" class="nav-link">İletişim</a></li>
+            </ul>
+
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1>Profesyonel Bilgisayar <span>Tamiri & Bilişim</span> Çözümleri</h1>
+                <p>Notebook, masaüstü, anakart onarımı ve kurumsal ağ altyapı hizmetlerinde güvenilir adresiniz. Cihazlarınız ilk günkü performansına kavuşsun.</p>
+                <div class="hero-buttons">
+                    <a href="#tracking" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Arıza Takibi Yap</a>
+                    <a href="https://wa.me/905555555555" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp Destek</a>
+                </div>
+                <div class="hero-features-badges">
+                    <div class="badge-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Garantili Onarım</span>
+                    </div>
+                    <div class="badge-item">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Hızlı Teslimat</span>
+                    </div>
+                    <div class="badge-item">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <span>Uzman Kadro</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-glow-circle">
+                    <svg class="hero-logo-display" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="80" stroke="#0052cc" stroke-width="4" stroke-dasharray="10 10" opacity="0.3"/>
+                        <path d="M60 100L90 130L140 70" stroke="#0052cc" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding about-section">
+        <div class="container about-grid">
+            <div class="about-image-box">
+                <div class="certificate-card">
+                    <div class="cert-header">
+                        <i class="fa-solid fa-award"></i>
+                        <span class="cert-badge">Sertifikalı Uzmanlık</span>
+                    </div>
+                    <h3>15 Yıllık Sektör Deneyimi</h3>
+                    <p>Binlerce başarılı onarım, kurumsal bakım anlaşmaları ve en son teknoloji arıza tespit cihazlarıyla hizmetinizdeyiz.</p>
+                    <div class="cert-footer-info">
+                        <div class="cert-info-item">
+                            <span>Memnuniyet</span>
+                            <strong>%99.8</strong>
+                        </div>
+                        <div class="cert-info-item">
+                            <span>Tamamlanan Cihaz</span>
+                            <strong>12.500+</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-text-content">
+                <h3>Güvenilir ve Şeffaf Teknik Servis Anlayışı</h3>
+                <p>Özdemir Teknik Bilgisayar olarak müşterilerimize her zaman dürüst, şeffaf ve ekonomik çözümler sunuyoruz. Onarım öncesi onay almadan hiçbir işlem yapmıyor, sürpriz maliyetlerle karşılaşmanızı engelliyoruz.</p>
+                
+                <div class="stat-bar-group">
+                    <div class="stat-item">
+                        <div class="stat-labels">
+                            <span>Notebook & Laptop Onarımı</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="stat-progress-bg">
+                            <div class="stat-progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-labels">
+                            <span>Anakart & Chipset Değişimi</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="stat-progress-bg">
+                            <div class="stat-progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-labels">
+                            <span>Veri Kurtarma & Yedekleme</span>
+                            <span>98%</span>
+                        </div>
+                        <div class="stat-progress-bg">
+                            <div class="stat-progress-fill" style="width: 98%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#contact" class="btn btn-outline">İletişime Geçin <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Uzmanlık <span>Hizmetlerimiz</span></h2>
+                <p>Cihazlarınız için profesyonel çözümler üretiyoruz</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fa-solid fa-laptop"></i>
+                    </div>
+                    <h3>Notebook & Bilgisayar Tamiri</h3>
+                    <p>Ekran değişimi, klavye değişimi, menteşe tamiri ve genel bakım işlemleri titizlikle yapılır.</p>
+                    <ul class="service-list">
+                        <li><i class="fa-solid fa-check"></i> Orijinal Yedek Parça</li>
+                        <li><i class="fa-solid fa-check"></i> Termal Macun Yenileme</li>
+                        <li><i class="fa-solid fa-check"></i> Fan Temizliği</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3>Anakart & Chipset Onarımı</h3>
+                    <p>BGA Reballing ve entegre değişimleri profesyonel ekipmanlarla laboratuvar ortamında gerçekleştirilir.</p>
+                    <ul class="service-list">
+                        <li><i class="fa-solid fa-check"></i> Kısa Devre Tespiti</li>
+                        <li><i class="fa-solid fa-check"></i> Besleme Devresi Onarımı</li>
+                        <li><i class="fa-solid fa-check"></i> 6 Ay Servis Garantisi</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3>Veri Kurtarma & SSD Yükseltme</h3>
+                    <p>Arızalı disklerinizden verilerinizi kurtarıyor, bilgisayarınızı SSD ile uçuşa geçiriyoruz.</p>
+                    <ul class="service-list">
+                        <li><i class="fa-solid fa-check"></i> Güvenli Veri Kurtarma</li>
+                        <li><i class="fa-solid fa-check"></i> NVMe M.2 SSD Montajı</li>
+                        <li><i class="fa-solid fa-check"></i> Hızlı Sistem Klonlama</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="services-more-info">
+                <p>Özel bir sorun mu yaşıyorsunuz veya kurumsal teklif mi almak istiyorsunuz?</p>
+                <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-headset"></i> Hemen Destek Alın</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking Section -->
+    <section id="tracking" class="section-padding tracking-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Arıza <span>Takip Simülatörü</span></h2>
+                <p>Cihazınızın servis durumunu kodunuzu girerek anlık olarak takip edin</p>
+            </div>
+
+            <div class="tracking-box">
+                <div class="search-form-wrapper">
+                    <div class="search-input-group">
+                        <i class="fa-solid fa-barcode"></i>
+                        <input type="text" id="trackingInput" placeholder="Takip Kodunuzu Girin (Örn: OT-2026)">
+                    </div>
+                    <button class="btn btn-primary" id="trackBtn"><i class="fa-solid fa-magnifying-glass"></i> Sorgula</button>
+                </div>
+
+                <div class="tracking-result-panel" id="resultPanel">
+                    <div class="device-info-header">
+                        <div class="device-details">
+                            <h4 id="deviceNameDisplay">Asus ROG Strix Notebook</h4>
+                            <p>Kayıt Tarihi: <span id="deviceDateDisplay">05.10.2026</span></p>
+                        </div>
+                        <span class="status-badge" id="statusBadgeDisplay">İşlemde</span>
+                    </div>
+
+                    <div class="progress-steps-container">
+                        <div class="progress-line-fill" id="progressLineFill"></div>
+                        
+                        <div class="step-node completed" id="step1">
+                            <div class="node-icon-circle"><i class="fa-solid fa-box-open"></i></div>
+                            <span class="node-label">Kayıt Alındı</span>
+                        </div>
+                        <div class="step-node active" id="step2">
+                            <div class="node-icon-circle"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                            <span class="node-label">Arıza Tespiti</span>
+                        </div>
+                        <div class="step-node" id="step3">
+                            <div class="node-icon-circle"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                            <span class="node-label">Onarım Aşaması</span>
+                        </div>
+                        <div class="step-node" id="step4">
+                            <div class="node-icon-circle"><i class="fa-solid fa-circle-check"></i></div>
+                            <span class="node-label">Hazır / Teslim</span>
+                        </div>
+                    </div>
+
+                    <div class="log-details-box" id="logDetailsDisplay">
+                        Cihazınız servisimize ulaştı ve arıza tespiti için sıraya alındı.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Portal Section -->
+    <section id="portal" class="section-padding portal-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Müşteri <span>Paneli</span></h2>
+                <p>Aktif cihazlarınızı ve servis geçmişinizi görüntüleyin</p>
+            </div>
+
+            <div class="portal-grid">
+                <div class="portal-sidebar">
+                    <div>
+                        <div class="portal-user-info">
+                            <div class="portal-user-avatar">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <h4>Ahmet Özdemir</h4>
+                            <span>Kurumsal Müşteri</span>
+                        </div>
+                        <ul class="portal-nav">
+                            <li><button class="portal-nav-btn active" data-target="pane-devices"><i class="fa-solid fa-laptop-code"></i> Cihazlarım</button></li>
+                            <li><button class="portal-nav-btn" data-target="pane-history"><i class="fa-solid fa-clock-rotate-left"></i> Servis Geçmişi</button></li>
+                            <li><button class="portal-nav-btn" data-target="pane-support"><i class="fa-solid fa-life-ring"></i> Destek Talepleri</button></li>
+                        </ul>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-light); text-align: center;">
+                        Özdemir Teknik v2.6
+                    </div>
+                </div>
+
+                <div class="portal-content-area">
+                    <div class="portal-pane active" id="pane-devices">
+                        <h3>Aktif Servisteki Cihazlar</h3>
+                        <div class="table-responsive">
+                            <table class="portal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Takip Kodu</th>
+                                        <th>Cihaz Modeli</th>
+                                        <th>Durum</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#OT-2026</td>
+                                        <td>Asus ROG Strix</td>
+                                        <td><span style="color: var(--primary-color); font-weight: 600;">Arıza Tespiti</span></td>
+                                        <td><a href="#tracking" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Takip Et</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#OT-2019</td>
+                                        <td>MacBook Pro 13</td>
+                                        <td><span style="color: #25d366; font-weight: 600;">Hazır</span></td>
+                                        <td><a href="#tracking" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Detay</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="portal-pane" id="pane-history">
+                        <h3>Tamamlanan Servis Geçmişi</h3>
+                        <div class="table-responsive">
+                            <table class="portal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tarih</th>
+                                        <th>Cihaz</th>
+                                        <th>Yapılan İşlem</th>
+                                        <th>Garanti</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>12.01.2025</td>
+                                        <td>Lenovo ThinkPad</td>
+                                        <td>Fan Temizliği & Termal Macun</td>
+                                        <td>Bitti</td>
+                                    </tr>
+                                    <tr>
+                                        <td>04.08.2024</td>
+                                        <td>HP Pavilion</td>
+                                        <td>Ekran Kablosu Değişimi</td>
+                                        <td>Bitti</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="portal-pane" id="pane-support">
+                        <h3>Destek Taleplerim</h3>
+                        <p style="color: #718096; margin-bottom: 20px;">Aktif bir destek talebiniz bulunmamaktadır. Yeni talep açmak için WhatsApp hattımızı kullanabilirsiniz.</p>
+                        <a href="https://wa.me/905555555555" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Destek Talebi Aç</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- GERÇEK VERİTABANLI ARIZA TALEP SİSTEMİ -->
+    <section id="requests" class="section-padding request-system-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Arıza <span>Talebi Oluştur</span></h2>
+                <p>Cihazınızı ve yaşadığınız sorunu yazın; talebiniz servis sistemine anında kaydedilsin.</p>
+            </div>
+
+            <div class="request-system-grid">
+                <div class="request-card">
+                    <h3><i class="fa-solid fa-ticket"></i> Yeni Servis Talebi</h3>
+                    <p>Talep oluşturduğunuzda size otomatik bir takip kodu verilir.</p>
+                    <div class="request-notice"><strong>Bilgi:</strong> Talep oluşturulduğu anda kayıt veritabanına düşer ve aşağıdaki ortak listede görünür. Servis ekibi daha sonra durum, yapılacak işlem ve tahmini teslim tarihini güncelleyebilir.</div>
+                    <form id="serviceRequestForm" class="request-form">
+                        <div class="two-col">
+                            <label>Ad Soyad *<input id="requestCustomerName" required maxlength="100" placeholder="Örn: Mehmet Özdemir"></label>
+                            <label>Telefon<input id="requestCustomerPhone" maxlength="30" placeholder="05xx xxx xx xx"></label>
+                        </div>
+                        <div class="two-col">
+                            <label>Cihaz Türü *
+                                <select id="requestDeviceType" required>
+                                    <option value="">Seçiniz</option>
+                                    <option>Notebook / Laptop</option>
+                                    <option>Masaüstü Bilgisayar</option>
+                                    <option>MacBook</option>
+                                    <option>Mini PC</option>
+                                    <option>All-in-One</option>
+                                    <option>Tablet</option>
+                                    <option>Diğer</option>
+                                </select>
+                            </label>
+                            <label>Marka / Model *<input id="requestDeviceModel" required maxlength="150" placeholder="Örn: Acer Aspire Lite AL15-71P"></label>
+                        </div>
+                        <label>Arıza / Sorun *<textarea id="requestProblem" required maxlength="2000" placeholder="Cihazda yaşadığınız sorunu mümkün olduğunca açık yazın."></textarea></label>
+                        <label>Ek Bilgi<textarea id="requestExtra" maxlength="2000" placeholder="Varsa ek bilgi, daha önce yapılan işlem vb."></textarea></label>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Talebi Oluştur</button>
+                        <div id="requestFormMessage" class="admin-message"></div>
+                    </form>
+                </div>
+
+                <div class="request-card">
+                    <h3><i class="fa-solid fa-globe"></i> Açık Servis Talepleri</h3>
+                    <p>Oluşturulan talepler ve servis tarafından girilen güncel bilgiler burada görünür.</p>
+                    <div id="publicRequestList" class="request-list">
+                        <div class="public-request-empty">Talepler yükleniyor...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YÖNETİM PANELİ -->
+    <section id="admin" class="section-padding admin-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Servis <span>Yönetim Paneli</span></h2>
+                <p>Yetkili girişinden sonra gelen talepleri açabilir, durumunu ve servis bilgilerini güncelleyebilirsin.</p>
+            </div>
+
+            <div id="adminLoginCard" class="admin-card admin-login">
+                <h3><i class="fa-solid fa-lock"></i> Yetkili Girişi</h3>
+                <p>Bu alan yalnızca servis yöneticisi içindir.</p>
+                <form id="adminLoginForm" class="admin-form">
+                    <label>E-posta<input id="adminEmail" type="email" required placeholder="Yönetici e-postası"></label>
+                    <label>Şifre<input id="adminPassword" type="password" required placeholder="Şifre"></label>
+                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
+                    <div id="adminLoginMessage" class="admin-message"></div>
+                </form>
+            </div>
+
+            <div id="adminDashboard" class="admin-dashboard">
+                <div class="admin-toolbar">
+                    <strong><i class="fa-solid fa-user-shield"></i> Yönetici olarak giriş yapıldı.</strong>
+                    <div class="admin-actions">
+                        <button id="refreshAdminRequests" class="btn btn-primary"><i class="fa-solid fa-rotate"></i> Yenile</button>
+                        <button id="adminLogout" class="btn btn-outline" style="border-color:#fff;color:#fff;"><i class="fa-solid fa-right-from-bracket"></i> Çıkış</button>
+                    </div>
+                </div>
+                <div id="adminRequestList" class="admin-request-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Map Section -->
+    <section id="contact" class="section-padding contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>İletişim & <span>Konum</span></h2>
+                <p>Bize her zaman ulaşabilir, teknik servisimize uğrayabilirsiniz</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-cards">
+                    <div class="info-card-item">
+                        <div class="info-icon-box">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="info-text-box">
+                            <h4>Adres</h4>
+                            <p>Çekirge Cad. Bilişim Plaza No:42, Osmangazi / Bursa</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card-item">
+                        <div class="info-icon-box">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="info-text-box">
+                            <h4>Telefon</h4>
+                            <p>+90 (224) 555 44 33<br>+90 (555) 555 55 55</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card-item">
+                        <div class="info-icon-box">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="info-text-box">
+                            <h4>E-Posta</h4>
+                            <p>destek@ozdemirteknikbilgisayar.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-frame-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.3756209794535!2d29.045!3d40.1885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDExJzM4LjYiTiAyOcKwMDInNDguMCJF!5e0!3m2!1str!2str!4v1650000000000!5m2!1str!2str" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="brand-name">ÖZDEMİR TEKNİK</h3>
+                    <p>Profesyonel bilgisayar tamiri, notebook onarımı ve kurumsal bilişim çözümleri ile her zaman yanınızdayız.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul>
+                        <li><a href="#hero">Ana Sayfa</a></li>
+                        <li><a href="#about">Hakkımızda</a></li>
+                        <li><a href="#services">Hizmetler</a></li>
+                        <li><a href="#tracking">Arıza Takip</a></li>
+                        <li><a href="#contact">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Hizmet Alanlarımız</h4>
+                    <ul>
+                        <li><a href="#services">Notebook Onarımı</a></li>
+                        <li><a href="#services">Anakart Tamiri</a></li>
+                        <li><a href="#services">Veri Kurtarma</a></li>
+                        <li><a href="#services">SSD & Donanım Yükseltme</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Özdemir Teknik Bilgisayar. Tüm Hakları Saklıdır.</p>
+                <p>Designed with Professional Care</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase istemcisi: gerçek ortak veritabanı bağlantısı -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- JavaScript Etkileşim Kodları -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Customer Portal Navigation Switching
+        const portalBtns = document.querySelectorAll('.portal-nav-btn');
+        const portalPanes = document.querySelectorAll('.portal-pane');
+
+        portalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                portalBtns.forEach(b => b.classList.remove('active'));
+                portalPanes.forEach(p => p.classList.remove('active'));
+
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Tracking Simulator Logic
+        const trackBtn = document.getElementById('trackBtn');
+        const trackingInput = document.getElementById('trackingInput');
+        const resultPanel = document.getElementById('resultPanel');
+        const deviceNameDisplay = document.getElementById('deviceNameDisplay');
+        const deviceDateDisplay = document.getElementById('deviceDateDisplay');
+        const statusBadgeDisplay = document.getElementById('statusBadgeDisplay');
+        const progressLineFill = document.getElementById('progressLineFill');
+        const logDetailsDisplay = document.getElementById('logDetailsDisplay');
+        
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const step4 = document.getElementById('step4');
+
+        trackBtn.addEventListener('click', function() {
+            const code = trackingInput.value.trim().toUpperCase();
+            if(!code) {
+                alert('Lütfen geçerli bir takip kodu girin.');
+                return;
+            }
+
+            resultPanel.style.display = 'block';
+
+            // Simüle edilmiş arıza kodlarına göre veri ataması
+            if(code === 'OT-2019') {
+                deviceNameDisplay.textContent = 'MacBook Pro 13';
+                deviceDateDisplay.textContent = '28.09.2026';
+                statusBadgeDisplay.textContent = 'Hazır / Teslim Bekliyor';
+                statusBadgeDisplay.style.backgroundColor = 'rgba(37, 211, 102, 0.1)';
+                statusBadgeDisplay.style.color = '#25d366';
+                
+                progressLineFill.style.width = '100%';
+                step1.className = 'step-node completed';
+                step2.className = 'step-node completed';
+                step3.className = 'step-node completed';
+                step4.className = 'step-node completed active';
+                logDetailsDisplay.textContent = 'Cihazınızın tüm onarımları ve testleri tamamlandı. Servisimizden veya kargo ile teslim alabilirsiniz.';
+            } else {
+                // Varsayılan / OT-2026
+                deviceNameDisplay.textContent = 'Asus ROG Strix Notebook';
+                deviceDateDisplay.textContent = '05.10.2026';
+                statusBadgeDisplay.textContent = 'Arıza Tespiti';
+                statusBadgeDisplay.style.backgroundColor = 'rgba(0, 82, 204, 0.1)';
+                statusBadgeDisplay.style.color = 'var(--primary-color)';
+
+                progressLineFill.style.width = '33%';
+                step1.className = 'step-node completed';
+                step2.className = 'step-node active';
+                step3.className = 'step-node';
+                step4.className = 'step-node';
+                logDetailsDisplay.textContent = 'Cihazınız servisimize ulaştı ve donanımsal arıza tespiti (Anakart & Chipset testi) aşamasındadır.';
+            }
+
+            resultPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+
+
+    <!-- GERÇEK TALEP SİSTEMİ ENTEGRASYONU -->
+    <script>
+        /* ==========================================================
+           ÖZDEMİR TEKNİK - SUPABASE AYARLARI
+           1) Supabase projen oluşturulduğunda aşağıdaki iki alanı doldur.
+           2) Buraya yalnızca Project URL ve anon/public key konur.
+           3) service_role key KESİNLİKLE buraya konmaz.
+        ========================================================== */
+        const OT_SUPABASE_URL = 'https://ngfkmznzbwuzwhedjmew.supabase.co';
+        const OT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZmttem56Ynd1endoZWRqbWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyMTM2NTUsImV4cCI6MjEwNjc4OTY1NX0.e5fuWJXmOdZQWx24zN2FnS2ZUnnEJfgQ5-mvIlPu8q0';
+
+        let otSupabase = null;
+        const otSupabaseConfigured =
+            OT_SUPABASE_URL.startsWith('https://') &&
+            !OT_SUPABASE_URL.includes('BURAYA_') &&
+            !OT_SUPABASE_ANON_KEY.includes('BURAYA_');
+
+        if (otSupabaseConfigured && window.supabase) {
+            otSupabase = window.supabase.createClient(OT_SUPABASE_URL, OT_SUPABASE_ANON_KEY);
+        }
+
+        const escHtml = (value) => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+        const formatDate = (value) => value ? new Date(value).toLocaleString('tr-TR', {dateStyle:'medium', timeStyle:'short'}) : '-';
+
+        function showMessage(id, text, ok = true) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = text;
+            el.className = 'admin-message ' + (ok ? 'ok' : 'err');
+        }
+
+        function statusProgress(status) {
+            const s = (status || '').toLowerCase();
+            if (s.includes('teslim edildi')) return 100;
+            if (s.includes('hazır')) return 100;
+            if (s.includes('onarım')) return 66;
+            if (s.includes('parça')) return 66;
+            if (s.includes('tespit')) return 33;
+            return 10;
+        }
+
+        function statusClass(status) {
+            const s = (status || '').toLowerCase();
+            if (s.includes('hazır') || s.includes('teslim edildi')) return 'background:#dcfce7;color:#166534;';
+            if (s.includes('iptal')) return 'background:#fee2e2;color:#991b1b;';
+            if (s.includes('onarım') || s.includes('parça')) return 'background:#fff7ed;color:#9a3412;';
+            return 'background:#e8f1ff;color:#0052cc;';
+        }
+
+        function publicRequestCard(r) {
+            return `
+                <article class="request-item">
+                    <div class="request-item-head">
+                        <div>
+                            <div class="request-code">${escHtml(r.tracking_code)}</div>
+                            <div class="request-meta">${formatDate(r.created_at)}</div>
+                        </div>
+                        <span class="request-status" style="${statusClass(r.status)}">${escHtml(r.status || 'Talep Alındı')}</span>
+                    </div>
+                    <h4>${escHtml(r.device_type)} — ${escHtml(r.device_model)}</h4>
+                    <p><strong>Talep sahibi:</strong> ${escHtml(r.customer_name)}</p>
+                    <p><strong>Sorun:</strong> ${escHtml(r.problem)}</p>
+                    <div class="request-details">
+                        <div class="request-detail-box"><small>Gerekli / Yapılacak İşlem</small>${escHtml(r.required_action || 'Henüz servis tarafından girilmedi.')}</div>
+                        <div class="request-detail-box"><small>Teslim Süresi / Tarihi</small>${r.delivery_date ? escHtml(new Date(r.delivery_date).toLocaleDateString('tr-TR')) : 'Henüz belirlenmedi.'}</div>
+                        <div class="request-detail-box"><small>Servis Notu</small>${escHtml(r.technician_note || 'Henüz servis notu girilmedi.')}</div>
+                        <div class="request-detail-box"><small>Son Güncelleme</small>${formatDate(r.updated_at)}</div>
+                    </div>
+                </article>`;
+        }
+
+        async function loadPublicRequests() {
+            const box = document.getElementById('publicRequestList');
+            if (!box) return;
+            if (!otSupabase) {
+                box.innerHTML = '<div class="public-request-empty">Veritabanı bağlantısı henüz yapılandırılmadı. Supabase URL ve anon key eklenmelidir.</div>';
+                return;
+            }
+            const {data, error} = await otSupabase.from('service_requests').select('*').order('created_at', {ascending:false}).limit(100);
+            if (error) {
+                box.innerHTML = `<div class="public-request-empty">Talepler alınamadı: ${escHtml(error.message)}</div>`;
+                return;
+            }
+            box.innerHTML = data?.length ? data.map(publicRequestCard).join('') : '<div class="public-request-empty">Henüz oluşturulmuş servis talebi yok.</div>';
+        }
+
+        document.getElementById('serviceRequestForm')?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!otSupabase) {
+                showMessage('requestFormMessage', 'Önce Supabase bağlantısını yapılandırmalısın.', false);
+                return;
+            }
+            const button = event.target.querySelector('button[type="submit"]');
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kaydediliyor...';
+
+            const payload = {
+                customer_name: document.getElementById('requestCustomerName').value.trim(),
+                customer_phone: document.getElementById('requestCustomerPhone').value.trim() || null,
+                device_type: document.getElementById('requestDeviceType').value,
+                device_model: document.getElementById('requestDeviceModel').value.trim(),
+                problem: document.getElementById('requestProblem').value.trim(),
+                extra_info: document.getElementById('requestExtra').value.trim() || null,
+                status: 'Talep Alındı'
+            };
+
+            const {data, error} = await otSupabase.from('service_requests').insert(payload).select('*').single();
+            button.disabled = false;
+            button.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Talebi Oluştur';
+
+            if (error) {
+                showMessage('requestFormMessage', 'Talep oluşturulamadı: ' + error.message, false);
+                return;
+            }
+            event.target.reset();
+            showMessage('requestFormMessage', `Talebiniz oluşturuldu. Takip kodunuz: ${data.tracking_code}`, true);
+            await loadPublicRequests();
+            document.getElementById('trackingInput').value = data.tracking_code;
+            document.getElementById('tracking')?.scrollIntoView({behavior:'smooth'});
+        });
+
+        async function applyTrackingResult(r) {
+            const resultPanel = document.getElementById('resultPanel');
+            if (!resultPanel) return;
+            resultPanel.style.display = 'block';
+            document.getElementById('deviceNameDisplay').textContent = `${r.device_type} — ${r.device_model}`;
+            document.getElementById('deviceDateDisplay').textContent = new Date(r.created_at).toLocaleDateString('tr-TR');
+            document.getElementById('statusBadgeDisplay').textContent = r.status || 'Talep Alındı';
+            document.getElementById('statusBadgeDisplay').style.cssText = statusClass(r.status);
+            document.getElementById('progressLineFill').style.width = statusProgress(r.status) + '%';
+            ['step1','step2','step3','step4'].forEach(id => document.getElementById(id).className = 'step-node');
+            document.getElementById('step1').classList.add('completed');
+            const progress = statusProgress(r.status);
+            if (progress >= 33) document.getElementById('step2').classList.add('completed');
+            else document.getElementById('step2').classList.add('active');
+            if (progress >= 66) document.getElementById('step3').classList.add('completed');
+            else if (progress > 33) document.getElementById('step3').classList.add('active');
+            if (progress >= 100) document.getElementById('step4').classList.add('completed','active');
+            document.getElementById('logDetailsDisplay').innerHTML = `<strong>Sorun:</strong> ${escHtml(r.problem)}<br><strong>Yapılacak işlem:</strong> ${escHtml(r.required_action || 'Henüz belirlenmedi.')}<br><strong>Teslim:</strong> ${r.delivery_date ? escHtml(new Date(r.delivery_date).toLocaleDateString('tr-TR')) : 'Henüz belirlenmedi.'}<br><strong>Servis notu:</strong> ${escHtml(r.technician_note || 'Henüz girilmedi.')}`;
+            resultPanel.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }
+
+        document.getElementById('trackBtn')?.addEventListener('click', async () => {
+            const code = document.getElementById('trackingInput').value.trim().toUpperCase();
+            if (!code) return alert('Lütfen geçerli bir takip kodu girin.');
+            if (!otSupabase) return alert('Veritabanı bağlantısı henüz yapılandırılmadı.');
+            const {data, error} = await otSupabase.from('service_requests').select('*').eq('tracking_code', code).maybeSingle();
+            if (error || !data) {
+                document.getElementById('resultPanel').style.display = 'none';
+                alert(error ? 'Sorgu hatası: ' + error.message : 'Bu takip koduna ait kayıt bulunamadı.');
+                return;
+            }
+            await applyTrackingResult(data);
+        });
+
+        function adminRequestCard(r) {
+            return `
+                <article class="admin-request-item" data-id="${escHtml(r.id)}">
+                    <div class="request-item-head">
+                        <div><div class="request-code">${escHtml(r.tracking_code)}</div><div class="request-meta">${formatDate(r.created_at)} — ${escHtml(r.customer_name)}</div></div>
+                        <span class="request-status" style="${statusClass(r.status)}">${escHtml(r.status || 'Talep Alındı')}</span>
+                    </div>
+                    <div class="admin-request-grid">
+                        <label>Ad Soyad<input data-field="customer_name" value="${escHtml(r.customer_name)}"></label>
+                        <label>Telefon<input data-field="customer_phone" value="${escHtml(r.customer_phone || '')}"></label>
+                        <label>Cihaz Türü<input data-field="device_type" value="${escHtml(r.device_type)}"></label>
+                        <label>Marka / Model<input data-field="device_model" value="${escHtml(r.device_model)}"></label>
+                        <label>Durum<select data-field="status">
+                            ${['Talep Alındı','Arıza Tespiti','Onarımda','Parça Bekleniyor','Hazır / Teslim','Teslim Edildi','İptal'].map(x=>`<option ${x===r.status?'selected':''}>${x}</option>`).join('')}
+                        </select></label>
+                        <label>Teslim Tarihi<input data-field="delivery_date" type="date" value="${escHtml(r.delivery_date || '')}"></label>
+                        <label class="full">Sorun<textarea data-field="problem">${escHtml(r.problem)}</textarea></label>
+                        <label class="full">Gerekli / Yapılacak İşlem<textarea data-field="required_action">${escHtml(r.required_action || '')}</textarea></label>
+                        <label class="full">Servis Notu / Açıklama<textarea data-field="technician_note">${escHtml(r.technician_note || '')}</textarea></label>
+                        <label class="full">Ek Bilgi<textarea data-field="extra_info">${escHtml(r.extra_info || '')}</textarea></label>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="btn btn-primary admin-save-request" data-id="${escHtml(r.id)}"><i class="fa-solid fa-floppy-disk"></i> Kaydet</button>
+                        <button class="btn btn-outline admin-delete-request" data-id="${escHtml(r.id)}"><i class="fa-solid fa-trash"></i> Sil</button>
+                        <a class="btn btn-whatsapp" target="_blank" href="https://wa.me/${encodeURIComponent((r.customer_phone||'').replace(/[^0-9]/g,''))}"><i class="fa-brands fa-whatsapp"></i> Müşteriye WhatsApp</a>
+                    </div>
+                    <div class="admin-message"></div>
+                </article>`;
+        }
+
+        async function loadAdminRequests() {
+            const box = document.getElementById('adminRequestList');
+            if (!otSupabase || !box) return;
+            box.innerHTML = '<div class="admin-card"><i class="fa-solid fa-spinner fa-spin"></i> Talepler yükleniyor...</div>';
+            const {data, error} = await otSupabase.from('service_requests').select('*').order('created_at', {ascending:false});
+            if (error) { box.innerHTML = `<div class="admin-card">${escHtml(error.message)}</div>`; return; }
+            box.innerHTML = data?.length ? data.map(adminRequestCard).join('') : '<div class="admin-card">Henüz talep yok.</div>';
+        }
+
+        document.getElementById('adminLoginForm')?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!otSupabase) return showMessage('adminLoginMessage','Supabase bağlantısı yapılandırılmadı.',false);
+            const {error} = await otSupabase.auth.signInWithPassword({
+                email: document.getElementById('adminEmail').value.trim(),
+                password: document.getElementById('adminPassword').value
+            });
+            if (error) return showMessage('adminLoginMessage', error.message, false);
+            document.getElementById('adminLoginCard').style.display='none';
+            document.getElementById('adminDashboard').style.display='block';
+            await loadAdminRequests();
+        });
+
+        document.getElementById('adminLogout')?.addEventListener('click', async () => {
+            await otSupabase?.auth.signOut();
+            document.getElementById('adminDashboard').style.display='none';
+            document.getElementById('adminLoginCard').style.display='block';
+        });
+        document.getElementById('refreshAdminRequests')?.addEventListener('click', loadAdminRequests);
+
+        document.getElementById('adminRequestList')?.addEventListener('click', async (event) => {
+            const saveBtn = event.target.closest('.admin-save-request');
+            const deleteBtn = event.target.closest('.admin-delete-request');
+            if (!saveBtn && !deleteBtn) return;
+            const article = event.target.closest('.admin-request-item');
+            const id = (saveBtn || deleteBtn).dataset.id;
+            const message = article.querySelector('.admin-message');
+            if (deleteBtn) {
+                if (!confirm('Bu servis talebini kalıcı olarak silmek istediğine emin misin?')) return;
+                const {error} = await otSupabase.from('service_requests').delete().eq('id', id);
+                if (error) { message.textContent=error.message; message.className='admin-message err'; }
+                else { await loadAdminRequests(); await loadPublicRequests(); }
+                return;
+            }
+            const payload = {};
+            article.querySelectorAll('[data-field]').forEach(el => payload[el.dataset.field] = el.value.trim() || null);
+            if (payload.delivery_date === '') payload.delivery_date = null;
+            const {error} = await otSupabase.from('service_requests').update(payload).eq('id', id);
+            if (error) { message.textContent=error.message; message.className='admin-message err'; }
+            else { message.textContent='Kayıt güncellendi.'; message.className='admin-message ok'; await loadPublicRequests(); }
+        });
+
+        // Var olan şablondaki eski iletişim alanlarını çalışma anında güncel işletme bilgileriyle eşleştirir.
+        // Kaynak kodundaki mevcut içerik silinmemiştir.
+        document.querySelectorAll('.info-text-box p').forEach((el) => {
+            const title = el.previousElementSibling?.textContent?.trim();
+            if (title === 'Adres') el.innerHTML = '16450 Yeni Mah. Güllü Sokak No:3, Kestel / Bursa';
+            if (title === 'Telefon') el.innerHTML = '<a href="tel:+905518836334" style="color:inherit;text-decoration:none;">+90 551 883 63 34</a>';
+        });
+        document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+            const current = a.getAttribute('href') || '';
+            if (current.includes('905555555555')) a.setAttribute('href','https://wa.me/905518836334');
+        });
+
+        // Haritayı verilen güncel işletme adresine yönlendirir.
+        document.querySelectorAll('.map-frame-wrapper iframe').forEach(frame => {
+            frame.src = 'https://www.google.com/maps?q=' + encodeURIComponent('16450 Yeni Mah. Güllü Sokak No:3, Kestel, Bursa') + '&output=embed';
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadPublicRequests();
+            if (otSupabase) {
+                const {data:{session}} = await otSupabase.auth.getSession();
+                if (session) {
+                    document.getElementById('adminLoginCard').style.display='none';
+                    document.getElementById('adminDashboard').style.display='block';
+                    await loadAdminRequests();
+                }
+                otSupabase.channel('service-requests-live')
+                    .on('postgres_changes', {event:'*', schema:'public', table:'service_requests'}, () => {
+                        loadPublicRequests();
+                        if (document.getElementById('adminDashboard').style.display !== 'none') loadAdminRequests();
+                    }).subscribe();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
